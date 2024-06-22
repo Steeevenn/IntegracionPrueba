@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clonar el repositorio desde GitHub
-                git 'https://github.com/Steeevenn/Integracioncontinua.git'
+                git branch: 'main', url: 'https://github.com/Steeevenn/Integracioncontinua.git'
             }
         }
 
