@@ -44,12 +44,15 @@ pipeline {
                 }
                 stage('Build Frontend') {
                     steps {
-                        script {
+                        dir('./frontend/crudfront') {
+                                    sh 'npm run build'
+                                }
 
                             
                             // Construir la imagen Docker para el frontend
-                            docker.build('frontend', './frontend/crudfront')
-                        }
+                            // docker.build('frontend', './frontend/crudfront')
+                            
+                        
                     }
                 }
 
