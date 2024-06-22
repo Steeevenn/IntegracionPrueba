@@ -25,7 +25,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Build Spring App') {
+                stage('Build Image Docker') {
                     steps {
                         script {
                             // Construir la imagen Docker para la aplicación Spring Boot
@@ -34,7 +34,13 @@ pipeline {
                     }
                 }
 
-
+                stage('Build docker frontend'){
+                    steps{
+                        dir('fronted/crud-front'){
+                            sh 'npm start'
+                        }
+                    }
+                }
 
                 stage('Build Frontend') {
                     steps {
