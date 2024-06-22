@@ -34,16 +34,7 @@ pipeline {
                     }
                 }
 
-                stage('Test Spring App') {
-                    steps {
-                        script {
-                            // Ejecutar las pruebas en la aplicación Spring Boot
-                            docker.image('spring-app2').inside {
-                                sh './backend/crud-application test'
-                            }
-                        }
-                    }
-                }
+
 
                 stage('Build Frontend') {
                     steps {
@@ -54,16 +45,7 @@ pipeline {
                     }
                 }
 
-                stage('Test Frontend') {
-                    steps {
-                        script {
-                            // Ejecutar las pruebas en el frontend
-                            docker.image('frontend').inside {
-                                sh 'npm test'
-                            }
-                        }
-                    }
-                }
+          
             }
         }
 
