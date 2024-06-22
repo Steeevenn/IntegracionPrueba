@@ -18,6 +18,13 @@ pipeline {
                 expression { params.PIPELINE_STAGE == 'build' }
             }
             stages {
+                stage('Build app'){
+                    steps{
+                        script{
+                            sh 'mvn clean package'
+                        }
+                    }
+                }
                 stage('Build Spring App') {
                     steps {
                         script {
