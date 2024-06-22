@@ -34,10 +34,18 @@ pipeline {
                     }
                 }
 
-             
+                stage('Install frontend dependencies'){
+
+                    steps{
+                         dir('./frontend/crudfront') {
+                            sh 'npm install'
+                    }
+                }
                 stage('Build Frontend') {
                     steps {
                         script {
+
+                            
                             // Construir la imagen Docker para el frontend
                             docker.build('frontend', './frontend/crudfront')
                         }
