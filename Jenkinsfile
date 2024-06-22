@@ -41,6 +41,7 @@ pipeline {
                             sh 'npm install'
                     }
                 }
+                }
                 stage('Build Frontend') {
                     steps {
                         script {
