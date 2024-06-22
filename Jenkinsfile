@@ -39,7 +39,7 @@ pipeline {
                         script {
                             // Ejecutar las pruebas en la aplicación Spring Boot
                             docker.image('spring-app2').inside {
-                                sh './mvnw test'
+                                sh './backend/crud-application test'
                             }
                         }
                     }
