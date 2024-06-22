@@ -38,6 +38,9 @@ pipeline {
 
                     steps{
                          dir('./frontend/crudfront') {
+                             sh 'rm -rf node_modules'
+                         sh 'rm package-lock.json'
+            
                             sh 'npm install'
                     }
                 }
