@@ -20,7 +20,8 @@ pipeline {
             stages {
                 stage('Build app'){
                     steps{
-                        script{
+                        script
+                            dir('backend/crud-application'){
                             sh 'mvn clean package'
                         }
                     }
