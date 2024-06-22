@@ -40,7 +40,7 @@ pipeline {
                     steps {
                         script {
                             // Construir la imagen Docker para el frontend
-                            docker.build('frontend', './frontend')
+                            docker.build('frontend', './frontend/crudfront')
                         }
                     }
                 }
