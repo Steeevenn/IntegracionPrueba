@@ -1,14 +1,18 @@
 pipeline {
     agent any
+
     parameters {
         choice(name: 'PIPELINE_STAGE', choices: ['build', 'deploy'], description: 'Seleccione el pipeline a ejecutar')
     }
+
     stages {
         stage('Checkout') {
             steps {
+                // Clonar el repositorio desde GitHub
                 git 'https://github.com/Steeevenn/Integracioncontinua.git'
             }
         }
+
         stage('Build Pipeline') {
             when {
                 expression { params.PIPELINE_STAGE == 'build' }
@@ -17,36 +21,55 @@ pipeline {
                 stage('Build Spring App') {
                     steps {
                         script {
-                            docker.build('spring-app2', './backend/crud-application')
+                            // Construir la imagen Docker para la aplicación Spring Boot
+                            docker.build('spring-app2', './backend')
                         }
                     }
                 }
+
                 stage('Test Spring App') {
                     steps {
-                        sh 'docker run --rm spring-app2 ./mvnw test'
+                        script {
+                            // Ejecutar las pruebas en la aplicación Spring Boot
+                            docker.image('spring-app2').inside {
+                                sh './mvnw test'
+                            }
+                        }
                     }
                 }
+
                 stage('Build Frontend') {
                     steps {
                         script {
-                            docker.build('frontend', './frontend/crudfront')
+                            // Construir la imagen Docker para el frontend
+                            docker.build('frontend', './frontend')
                         }
                     }
                 }
+
                 stage('Test Frontend') {
                     steps {
-                        sh 'docker run --rm frontend npm test'
+                        script {
+                            // Ejecutar las pruebas en el frontend
+                            docker.image('frontend').inside {
+                                sh 'npm test'
+                            }
+                        }
                     }
                 }
             }
         }
+
         stage('Deploy Pipeline') {
             when {
                 expression { params.PIPELINE_STAGE == 'deploy' }
             }
             steps {
                 script {
+                    // Detener y eliminar contenedores existentes antes de desplegar
                     sh 'docker-compose down'
+                    
+                    // Levantar contenedores definidos en docker-compose.yml
                     sh 'docker-compose up -d'
                 }
             }
