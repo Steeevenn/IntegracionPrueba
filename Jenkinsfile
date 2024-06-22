@@ -34,14 +34,7 @@ pipeline {
                     }
                 }
 
-                stage('Build docker frontend'){
-                    steps{
-                        dir('fronted/crud-front'){
-                            sh 'npm start'
-                        }
-                    }
-                }
-
+             
                 stage('Build Frontend') {
                     steps {
                         script {
