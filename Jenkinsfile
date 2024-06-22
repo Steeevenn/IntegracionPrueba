@@ -22,7 +22,7 @@ pipeline {
                     steps {
                         script {
                             // Construir la imagen Docker para la aplicación Spring Boot
-                            docker.build('spring-app2', './backend')
+                            docker.build('spring-app2', './backend/crud-application')
                         }
                     }
                 }
